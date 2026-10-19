@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AssistantRouteImport } from './routes/assistant'
+import { Route as DocumentsRouteImport } from './routes/documents'
+import { Route as ProceduresIndexRouteImport } from './routes/procedures.index'
+import { Route as ProceduresIdRouteImport } from './routes/procedures.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistantRoute = AssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsRoute = DocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProceduresIndexRoute = ProceduresIndexRouteImport.update({
+  id: '/procedures/',
+  path: '/procedures/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProceduresIdRoute = ProceduresIdRouteImport.update({
+  id: '/procedures/$id',
+  path: '/procedures/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/assistant': typeof AssistantRoute
+  '/documents': typeof DocumentsRoute
+  '/procedures/$id': typeof ProceduresIdRoute
+  '/procedures/': typeof ProceduresIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/assistant': typeof AssistantRoute
+  '/documents': typeof DocumentsRoute
+  '/procedures/$id': typeof ProceduresIdRoute
+  '/procedures': typeof ProceduresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/assistant': typeof AssistantRoute
+  '/documents': typeof DocumentsRoute
+  '/procedures/$id': typeof ProceduresIdRoute
+  '/procedures/': typeof ProceduresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/assistant'
+    | '/documents'
+    | '/procedures/$id'
+    | '/procedures/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/assistant'
+    | '/documents'
+    | '/procedures/$id'
+    | '/procedures'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/assistant'
+    | '/documents'
+    | '/procedures/$id'
+    | '/procedures/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AssistantRoute: typeof AssistantRoute
+  DocumentsRoute: typeof DocumentsRoute
+  ProceduresIdRoute: typeof ProceduresIdRoute
+  ProceduresIndexRoute: typeof ProceduresIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistant': {
+      id: '/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents': {
+      id: '/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof DocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/procedures/': {
+      id: '/procedures/'
+      path: '/procedures'
+      fullPath: '/procedures/'
+      preLoaderRoute: typeof ProceduresIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/procedures/$id': {
+      id: '/procedures/$id'
+      path: '/procedures/$id'
+      fullPath: '/procedures/$id'
+      preLoaderRoute: typeof ProceduresIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AssistantRoute: AssistantRoute,
+  DocumentsRoute: DocumentsRoute,
+  ProceduresIdRoute: ProceduresIdRoute,
+  ProceduresIndexRoute: ProceduresIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
